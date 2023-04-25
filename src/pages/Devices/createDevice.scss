@@ -1,0 +1,21 @@
+@import "../../styles/index";
+
+.devices-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%);
+  background-color: rgba(70,64,98, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__wrapper {
+    padding: 30px;
+    background-color: $orangeColor;
+    border-radius: 20px;
+    box-shadow:  3.0px 11.7px 11.7px hsl(251, 21%, 32%, 0.41);
+    color: $purpleColor;
+  }
+}

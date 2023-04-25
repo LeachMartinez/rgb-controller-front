@@ -1,6 +1,6 @@
 interface IDevice {
   mac: String,
-  type: String,
+  type: "deviceMatrix" | "deviceStrip",
   ledCount: Number
 }
 
