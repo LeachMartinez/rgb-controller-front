@@ -6,10 +6,18 @@ interface ICreateDeviceProps {
 }
 
 const CreateDevice : React.FC<ICreateDeviceProps> = ({setModalShowed, setDevices}) => {
+  const onCreateDevice = (event : React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    set
+  }
+
   return (
-  <>
-    
-  </>
+    <form onSubmit={event => onCreateDevice(event)} action="">
+      MAC адрес: <input type="text" />
+      Тип устройства: <input type="text" /> {/* тут радио с выбором (матрица или лента)*/}
+      Количество светодиодов: <input type="number" name="" id="" />
+      <button>добавить</button>
+    </form>
   );
 }
 

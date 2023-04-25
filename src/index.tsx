@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import routerConfig from "./navigation/routerConfig";
 
 const root = ReactDOM.createRoot(
@@ -9,8 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
     <RouterProvider router={routerConfig} />
-    </BrowserRouter>
   </React.StrictMode>
 );
