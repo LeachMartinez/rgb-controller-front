@@ -10,25 +10,4 @@
   &__block {
     position: relative;
   }
-  &__add-device {
-    border: none;
-    background-color: $purpleColor;
-    color: $orangeColor;
-    border-radius: 35px;
-    padding: 25px 35px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    box-shadow: 3.0px 6.1px 6.1px hsl(251, 21%, 32%, 0.41);
-    transition: 0.3s ease-in-out all;
-    &:hover {
-      color: $purpleColor;
-      background-color: $orangeColor;
-      box-shadow:  3.0px 11.7px 11.7px hsl(251, 21%, 32%, 0.41);
-    }
-    &:active {
-      transform: scale(.95, .97);
-      box-shadow:  3.0px 16.7px 16.7px hsl(251, 21%, 32%, 0.41);
-    }
-  }
 }

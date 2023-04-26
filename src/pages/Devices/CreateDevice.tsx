@@ -1,5 +1,9 @@
 import IDevice from "../../interfaces/device";
-import "./createDevice.scss";
+import styles from "./createDevice.module.scss";
+
+import Input from "../../components/Input";
+import Button from "../../components/Button";
+import RadioButton from "../../components/RadioButton";
 interface ICreateDeviceProps {
   setModalShowed: React.Dispatch<React.SetStateAction<boolean>>,
   setDevices: React.Dispatch<React.SetStateAction<IDevice[]>>
@@ -20,22 +24,24 @@ const CreateDevice : React.FC<ICreateDeviceProps> = ({setModalShowed, setDevices
   }
 
   return (
-    <div className="devices-modal">
-      <div className="devices-modal__wrapper">
-        <h2 className="h2-title">Новое устройство</h2>
-        <form onSubmit={event => onCreateDevice(event)} action="">
-          MAC адрес: <input type="text" name="deviceMacAddress" />
-          <div>
-            <span>Тип устройства:</span>
-              матрица <input type="radio" name="deviceType" value="deviceMatirx"/>
-              лента <input type="radio" name="deviceType" value="deviceStrip" />
-          </div>
-
-          Количество светодиодов: <input type="number" name="deviceLedCount" min={0} />
-          <button>добавить</button>
-        </form>
+    <>
+      <div className={styles.devicesModal}>
+        <div className={styles.devicesModal__wrapper}>
+          <h2 className="h2-title">Новое устройство</h2>
+          <form onSubmit={event => onCreateDevice(event)} action="">
+            <div className={styles.devicesModal__inputWrapper}>
+              <Input labelText={"MAC адрес:"} id={"deviceMacAddress"} />
+              <span>Тип устройства:</span>
+              <RadioButton name={"deviceType"} value={"deviceStrip"} title={"лента"}/>
+              <RadioButton name={"deviceType"} value={"deviceMatirx"} title={"матрица"}/>
+              <Input labelText={"Количество светодиодов:"} id={"deviceLedCount"} type={"number"} min={1}/>
+            </div>
+            <Button textBtn={"Добавить"}/>
+          </form>
+        </div>
       </div>
-    </div>
+      <div className={styles.devicesModal__backdrop}></div>
+    </>
   );
 }
 

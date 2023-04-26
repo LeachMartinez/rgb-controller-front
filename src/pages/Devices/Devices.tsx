@@ -1,7 +1,10 @@
 import React from "react";
+
 import IDevice from "../../interfaces/device";
+
 import CreateDevice from "./CreateDevice";
 import Device from "./Device";
+import Button from "../../components/Button";
 import "./devices.scss";
 
 const Devices : React.FC = () => {
@@ -18,7 +21,7 @@ const Devices : React.FC = () => {
       { devices.length > 0 ? 
         devices.map((device) => <Device device={device}/>) : null 
       }
-      <button className="devices-wrapper__add-device" onClick={onAddDevice}>Добавить устройство</button>
+      <Button onClickBtn={onAddDevice} textBtn={"Добавить устройство"}/>
       { modalShowed ? 
         <CreateDevice setDevices={setDevices} setModalShowed={setModalShowed}/> : null
       }
