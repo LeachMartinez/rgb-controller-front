@@ -2,7 +2,7 @@
 
 .button {
   border: none;
-  background-color: $purpleColor;
+  background-color: $darkPurpleColor;
   color: $orangeColor;
   border-radius: 35px;
   padding: 15px 25px;
@@ -13,12 +13,12 @@
   transition: 0.15s ease-in all;
  
   &.inverseColor {
-    color: $purpleColor;
+    color: $darkPurpleColor;
     background-color: $orangeColor;
   }
   
   &:hover {
-    color: $purpleColor;
+    color: $darkPurpleColor;
     background-color: $orangeColor;
     box-shadow:  3.0px 11.7px 11.7px hsl(251, 21%, 32%, 0.41);
   }

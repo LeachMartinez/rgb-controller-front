@@ -21,6 +21,11 @@ const CreateDevice : React.FC<ICreateDeviceProps> = ({setModalShowed, setDevices
     }
 
     setDevices(devices => [...devices, device]);
+    setModalShowed(false);
+  }
+
+  const closeModal = () => {
+    setModalShowed(false);
   }
 
   return (
@@ -33,10 +38,11 @@ const CreateDevice : React.FC<ICreateDeviceProps> = ({setModalShowed, setDevices
               <Input labelText={"MAC адрес:"} id={"deviceMacAddress"} />
               <span>Тип устройства:</span>
               <RadioButton name={"deviceType"} value={"deviceStrip"} title={"лента"}/>
-              <RadioButton name={"deviceType"} value={"deviceMatirx"} title={"матрица"}/>
+              <RadioButton name={"deviceType"} value={"deviceMatrix"} title={"матрица"}/>
               <Input labelText={"Количество светодиодов:"} id={"deviceLedCount"} type={"number"} min={1}/>
             </div>
             <Button textBtn={"Добавить"}/>
+            <Button textBtn={"Закрыть"} onClickBtn={closeModal}/>
           </form>
         </div>
       </div>

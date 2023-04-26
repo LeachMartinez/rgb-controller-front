@@ -1,4 +1,5 @@
 import IDevice from "../../interfaces/device";
+import "./device.scss";
 interface IDeviceProp {
   device: IDevice
 }
@@ -12,11 +13,10 @@ const Device : React.FC<IDeviceProp> = ({device}) => {
     
   return (
   <>
-    <div>
-      Устройство
-      <span>MAC адрес: {device.mac}</span>
-      <span>Тип устройства: {deviceType[device.type]}</span>
-      <span>Количество светодиодов: {device.ledCount.toString()}</span>
+    <div className="device">
+      <span>MAC: {device.mac}</span>
+      <span>Тип: {deviceType[device.type]}</span>
+      <span>светодиодов: {device.ledCount.toString()} шт.</span>
     </div>
   </>
   );

@@ -12,13 +12,16 @@
   width: 100%;
   z-index: 2;
   transition: 0.2s ease-in-out all;
+  box-shadow: $purpleColorHsl 0px 0px 0px;
+
   &:focus {
+    box-shadow: 4px 10px 10px $purpleColorHsl;
     background-color: transparent;
     outline: none;
   }
   &__block {
     position: relative;
-    box-shadow: $purpleColorHsl 0px 0px 0px;
+
     transition: 0.2s ease-in-out all;
     &::after, &::before {
       z-index: 1;
@@ -34,7 +37,6 @@
     }
   }
   &__block:has(.input:focus) {
-    box-shadow: 4px 10px 10px $purpleColorHsl;
     .input {
       padding: 6px 5px 14px 5px;
     }

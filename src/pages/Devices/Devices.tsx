@@ -18,14 +18,16 @@ const Devices : React.FC = () => {
     <div className="devices-wrapper">
       <div className="devices-wrapper__block">
       { devices.length > 0 ? <h2 className="devices-wrapper__title">Ваши устройства:</h2> : null }
-      { devices.length > 0 ? 
-        devices.map((device) => <Device device={device}/>) : null 
-      }
+      <div className="devices-wrapper__items">
+        { devices.length > 0 ? 
+          devices.map((device) => <Device device={device}/>) : null 
+        }
+      </div>
       <Button onClickBtn={onAddDevice} textBtn={"Добавить устройство"}/>
+      </div>
       { modalShowed ? 
         <CreateDevice setDevices={setDevices} setModalShowed={setModalShowed}/> : null
       }
-      </div>
     </div>
   );
 }
