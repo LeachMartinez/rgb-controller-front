@@ -15,6 +15,7 @@ const CreateDevice : React.FC<ICreateDeviceProps> = ({setModalShowed, setDevices
     const { deviceMacAddress, deviceType, deviceLedCount } = event.currentTarget;
 
     const device : IDevice = {
+      id: new Date().getTime(),
       mac: deviceMacAddress.value,
       type: deviceType.value,
       ledCount: deviceLedCount.value

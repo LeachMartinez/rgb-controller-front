@@ -1,10 +1,27 @@
 @import "./vars";
 
+@font-face {
+  font-family: "Bender";
+  src: url("../fonts/JovannyLemonad\ -\ Bender.otf");
+}
+@font-face {
+  font-family: "BenderLight";
+  src: url("../fonts/JovannyLemonad\ -\ Bender-Light.otf");
+}
+@font-face {
+  font-family: "BenderBold";
+  src: url("../fonts/JovannyLemonad\ -\ Bender-Bold.otf");
+}
+@font-face {
+  font-family: "BenderBlack";
+  src: url("../fonts/JovannyLemonad\ -\ Bender-Black.otf");
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: "Bender", sans-serif;
 }
 
 body {
