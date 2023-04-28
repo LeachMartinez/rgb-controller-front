@@ -21,9 +21,36 @@
     flex-wrap: wrap;
     overflow-y: auto;
     margin-bottom: 16px;
-    gap: 2%;
+    column-gap: 2.3%;
+    row-gap: 10px;
   }
   &__title {
     margin-bottom: 24px;
+  }
+}
+
+.deviceItem {
+  display: flex;
+  flex-direction: column;
+  &__title {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  &__desc {
+    font-size: 12px;
+  }
+  &__wrapper {
+    width: 195px;
+    padding: 20px;
+    background: $darkPurpleColor;
+    border-radius: 25px;
+    text-decoration: none;
+    color: $orangeColor;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      background: $orangeColor;
+      color: $purpleColor;
+    }  
   }
 }

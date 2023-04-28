@@ -12,13 +12,14 @@ interface ICreateDeviceProps {
 const CreateDevice : React.FC<ICreateDeviceProps> = ({setModalShowed, setDevices}) => {
   const onCreateDevice = (event : React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { deviceMacAddress, deviceType, deviceLedCount } = event.currentTarget;
+    const { deviceMacAddress, deviceType, deviceLedCount, deviceName } = event.currentTarget;
 
     const device : IDevice = {
       id: new Date().getTime(),
       mac: deviceMacAddress.value,
       type: deviceType.value,
-      ledCount: deviceLedCount.value
+      ledCount: deviceLedCount.value,
+      name: deviceName.value
     }
 
     setDevices(devices => [...devices, device]);
@@ -36,6 +37,7 @@ const CreateDevice : React.FC<ICreateDeviceProps> = ({setModalShowed, setDevices
           <h2 className="h2-title">Новое устройство</h2>
           <form onSubmit={event => onCreateDevice(event)} action="">
             <div className={styles.devicesModal__inputWrapper}>
+              <Input labelText={"Название:"} id={"deviceName"} />
               <Input labelText={"MAC адрес:"} id={"deviceMacAddress"} />
               <span>Тип устройства:</span>
               <RadioButton name={"deviceType"} value={"deviceStrip"} title={"лента"}/>

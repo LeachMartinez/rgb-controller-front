@@ -7,7 +7,6 @@ import CreateDevice from "./CreateDevice";
 import Button from "../../components/Button";
 
 import "./devices.scss";
-import "./device.scss";
 
 enum deviceType {
   "deviceMatrix" = "Матрица",
@@ -29,11 +28,12 @@ const Devices : React.FC = () => {
           <div className="devices-wrapper__items">
             {devices.map((device) => {
               return (
-                <Link to={`/devices/${device.id}`}>
-                  <div className="device">
-                    <span>MAC: {device.mac}</span>
-                    <span>Тип: {deviceType[device.type]}</span>
-                    <span>светодиодов: {device.ledCount.toString()} шт.</span>
+                <Link to={`/devices/${device.id}`} className="deviceItem__wrapper">
+                  <div className="deviceItem">
+                    <h2 className="deviceItem__title">{device.name}</h2>
+                    <span className="deviceItem__desc">MAC: {device.mac}</span>
+                    <span className="deviceItem__desc">Тип: {deviceType[device.type]}</span>
+                    <span className="deviceItem__desc">светодиодов: {device.ledCount.toString()} шт.</span>
                   </div>
                 </Link>
               )

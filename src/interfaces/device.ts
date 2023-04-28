@@ -1,8 +1,9 @@
 interface IDevice {
   id: number,
-  mac: String,
+  mac: string,
   type: "deviceMatrix" | "deviceStrip",
-  ledCount: Number
+  ledCount: number,
+  name: string
 }
 
 export default IDevice

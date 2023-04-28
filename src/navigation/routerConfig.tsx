@@ -4,13 +4,11 @@ import Device from "../pages/Devices/Device";
 const routerConfig = createBrowserRouter([
   {
     path: "/devices",
-    element: <Devices/>,
-    children: [
-      {
-        path: ":id",
-        element: <Device/>
-      }
-    ]
+    element: <Devices/>
+  },
+  {
+    path: "/devices/:id",
+    element: <Device/>
   }
 ]);
 
