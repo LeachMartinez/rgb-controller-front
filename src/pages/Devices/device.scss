@@ -1,6 +1,7 @@
 @import "../../styles/index";
 
 .led {
+  transition: 0.3s all;
   width: 100%;
   &:first-child {
     border-radius: 15px 0 0 15px;

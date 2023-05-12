@@ -9,60 +9,67 @@ interface ILed {
 
 const Device : React.FC = () => {
   const [leds, setLedColor] = React.useState<ILed[]>([{
-    r: Math.round(Math.random() * 255),
+    r: Math.round(255),
     g: Math.round(Math.random() * 255),
-    b: Math.round(Math.random() * 255),
+    b: Math.round(255),
     brightness: 100
   },{
-    r: Math.round(Math.random() * 255),
+    r: Math.round(255),
     g: Math.round(Math.random() * 255),
-    b: Math.round(Math.random() * 255),
+    b: Math.round(255),
     brightness: 100
   },{
-    r: Math.round(Math.random() * 255),
+    r: Math.round(255),
     g: Math.round(Math.random() * 255),
-    b: Math.round(Math.random() * 255),
+    b: Math.round(255),
     brightness: 100
   },{
-    r: Math.round(Math.random() * 255),
+    r: Math.round(255),
     g: Math.round(Math.random() * 255),
-    b: Math.round(Math.random() * 255),
+    b: Math.round(255),
     brightness: 100
   },{
-    r: Math.round(Math.random() * 255),
+    r: Math.round(255),
     g: Math.round(Math.random() * 255),
-    b: Math.round(Math.random() * 255),
+    b: Math.round(255),
     brightness: 100
   },{
-    r: Math.round(Math.random() * 255),
+    r: Math.round(255),
     g: Math.round(Math.random() * 255),
-    b: Math.round(Math.random() * 255),
+    b: Math.round(255),
     brightness: 100
   },{
-    r: Math.round(Math.random() * 255),
+    r: Math.round(255),
     g: Math.round(Math.random() * 255),
-    b: Math.round(Math.random() * 255),
+    b: Math.round(255),
     brightness: 100
   }]); 
-  const [i, setI] = React.useState(0);
+  const [i, setI] = React.useState(1.0);
+  const [timestapValue, setTimestapValue] = React.useState(16);
+
   React.useEffect(() => {
     setTimeout(() => {
-      console.log(Math.round((Math.sin(i) + 1) * 50));
+      console.log(Math.pow(Math.sin(i), 2) * 100);
       
-      setI(i + 1);
+      setI(i + 0.1);
       setLedColor(leds => {
         return leds.map(led => {
-          return {...led, brightness: Math.round((Math.sin(i) + 1) * 50)}
+          return {...led, brightness: Math.pow(Math.sin(i), 2) * 100}
         })
       })
-    }, 300);
-  }, [leds, i]);
+    }, timestapValue);
+  }, [leds, i, timestapValue]);
 
   const handleChangeColor : React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const rgbValue : ILed = hexToRgb(e.currentTarget.value);
     setLedColor((leds) => leds.map(led => {
       return {...rgbValue, brightness: led.brightness};
     }));
+  }
+
+  const handleChamgeTimestap : React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const timestapValue = +e.currentTarget.value;
+    setTimestapValue(timestapValue);
   }
 
   const handleChanheBrightness : React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -103,6 +110,7 @@ const Device : React.FC = () => {
       <section>
         <input type="color" name="setLedColor" onChange={(e) => (handleChangeColor(e))}/>
         <input type="range" name="brightness" onChange={(e) => {handleChanheBrightness(e)}} min={0} max={100}/>
+        <input type="range" name="timestap" onChange={(e) => {handleChamgeTimestap(e)}} min={100} max={300}/>
       </section>
     </div>
   );
