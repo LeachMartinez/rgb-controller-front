@@ -19,7 +19,8 @@ const CreateDevice : React.FC<ICreateDeviceProps> = ({setModalShowed, setDevices
       mac: deviceMacAddress.value,
       type: deviceType.value,
       ledCount: deviceLedCount.value,
-      name: deviceName.value
+      name: deviceName.value,
+      active: 0
     }
 
     setDevices(devices => [...devices, device]);

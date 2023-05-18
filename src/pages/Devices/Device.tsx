@@ -1,110 +1,52 @@
 import React from "react";
+import { useLoaderData } from "react-router-dom";
 import RadioButton from "../../components/RadioButton";
 import ILed from "../../interfaces/led";
 import LedMode from "../../services/ledMode";
+import IDevice from "../../interfaces/device";
 import "./device.scss";
 
-const Device : React.FC = () => {
-  const [leds, setLedColor] = React.useState<ILed[]>([{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  },{
-    r: Math.round(255),
-    g: Math.round(Math.random() * 255),
-    b: Math.round(255),
-    brightness: 100
-  }]);
-  const ledMode = new LedMode(leds);
+export const Device : React.FC = () => {
+  const [leds, setLedColor] = React.useState<ILed[]>([]);
   const [i, setI] = React.useState(0.1);
   const [timestapValue, setTimestapValue] = React.useState(16);
   const [mode, setMode] = React.useState("staticLight");
+  enum deivceStatus {
+    "Отключен",
+    "Активен"
+  }
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      setI(i + 0.1);
-      if (mode === "fadedRow") {
-        setLedColor(ledMode.fadedRow(i, timestapValue))
-      }
-      if (mode === "rainbowColor") {
-        setLedColor(ledMode.rainbowColor(i, timestapValue))
-      }
-      if (mode === "fading") {
-        setLedColor(ledMode.fading(i, timestapValue))
-      }
-    }, 16);
-  }, [ledMode, mode, i, timestapValue]);
+  enum deviceClassStatus {
+    "disabled",
+    "active"
+  }
+
+  const data = useLoaderData() as IDevice;
+  
+  const ledMode = new LedMode(leds);
+
+  // setLedColor(leds => {
+  //   let newLeds: ILed[] = [];
+  //   for (let i = 0; i < device.ledCount; i++) {
+  //     newLeds.push({brightness: 100, r: 255, g: Math.random() * 255 ,b: 0})
+  //   }
+  //   return newLeds;
+  // });
+
+  // React.useEffect(() => {
+  //   setTimeout(() => {
+  //     setI(i + 0.1);
+  //     if (mode === "fadedRow") {
+  //       setLedColor(ledMode.fadedRow(i, timestapValue))
+  //     }
+  //     if (mode === "rainbowColor") {
+  //       setLedColor(ledMode.rainbowColor(i, timestapValue))
+  //     }
+  //     if (mode === "fading") {
+  //       setLedColor(ledMode.fading(i, timestapValue))
+  //     }
+  //   }, 16);
+  // }, [ledMode, mode, i, timestapValue]);
 
   const handleChangeColor : React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setLedColor(ledMode.staticLight(e.currentTarget.value));
@@ -127,13 +69,13 @@ const Device : React.FC = () => {
     <div className="device__container">
       <div className="device__top">
         <section className="device__title__wrapper">
-          <h2 className="device__title__device__name">Ебобо 3000</h2>
+          <h2 className="device__title__device__name">{data.name}</h2>
           <div className="device__title__description">
             <span className="device__title__description__mac">MAC: 
-              <span className="device__title__description__mac-name">0F:2S:f3:D5</span>
+              <span className="device__title__description__mac-name">{data.mac}</span>
             </span>
             <span className="device__title__description__status">Статус: 
-              <span className="device__title__description__status-name active">Активен</span>
+              <span className={`device__title__description__status-name ${deviceClassStatus[data.active]}`}>{deivceStatus[data.active]}</span>
             </span>
           </div>
         </section>
@@ -165,4 +107,3 @@ const Device : React.FC = () => {
     </div>
   );
 }
-export default Device;

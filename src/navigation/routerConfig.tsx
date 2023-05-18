@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Devices } from "../pages/Devices";
-import Device from "../pages/Devices/Device";
+import { Device } from "../pages/Devices/Device";
+import IDevice from "../interfaces/device";
+import { DeviceApi } from "../api/deviceApi";
 const routerConfig = createBrowserRouter([
   {
     path: "/devices",
@@ -8,7 +10,10 @@ const routerConfig = createBrowserRouter([
   },
   {
     path: "/devices/:id",
-    element: <Device/>
+    element: <Device/>,
+    loader: async ({ params }) : Promise<IDevice | ""> => {
+      return params.id ? (await new DeviceApi().getDevice(params.id)).data : "";
+    }
   }
 ]);
 

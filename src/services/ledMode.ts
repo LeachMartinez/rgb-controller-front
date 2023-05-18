@@ -2,7 +2,8 @@ import ILed from "../interfaces/led";
 import ILedMode from "../interfaces/ledMode";
 import ColorConverter from "./colorConverter";
 
-class LedMode implements ILedMode{
+class LedMode implements ILedMode {
+
   leds : ILed[];
   ledsCount : number;
 
@@ -23,7 +24,7 @@ class LedMode implements ILedMode{
 
   }
 
-  fading (i : number, timestapValue : number) : ILed[] {
+  fading(i : number, timestapValue : number) : ILed[] {
     return this.leds.map(led => {
       return {...led, brightness: Math.pow(Math.sin(i/timestapValue), 2) * 100}
     })
