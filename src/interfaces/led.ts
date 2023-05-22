@@ -1,8 +1,8 @@
 interface ILed {
-  r: number,
-  g: number,
-  b: number,
-  brightness: number | 100
+  r: number
+  g: number
+  b: number
+  brightness: number
 }
 
 export default ILed;

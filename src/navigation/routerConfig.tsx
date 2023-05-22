@@ -5,8 +5,11 @@ import IDevice from "../interfaces/device";
 import { DeviceApi } from "../api/deviceApi";
 const routerConfig = createBrowserRouter([
   {
-    path: "/devices",
-    element: <Devices/>
+    path: "/device",
+    element: <Devices/>,
+    loader: async () : Promise<IDevice[] | ""> => {
+      return (await new DeviceApi().getDevices()).data;
+    }
   },
   {
     path: "/devices/:id",

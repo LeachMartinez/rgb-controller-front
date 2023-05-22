@@ -14,6 +14,7 @@ class LedMode implements ILedMode {
 
   fadedRow(i : number, timestapValue : number) : ILed[] {
     return this.leds.map((led, index) => {
+      // TODO: Упростить выражение по-возможности
       const value = Math.pow(Math.sin(index/timestapValue + i/35), 2) * 358 + 1 + (360 / this.ledsCount);
       const [r, g, b] = ColorConverter.HSLToRGB(value, 80, 50);
       return {...led, r, g, b }
@@ -57,6 +58,12 @@ class LedMode implements ILedMode {
       const value = (Math.pow(Math.sin(i/timestapValue), 2) * 358) + 1;
       const [r, g, b] = ColorConverter.HSLToRGB(value, 80, 50);
       return {...led, r, g, b }
+    })
+  }
+
+  changeBrightness(brightness : number) {
+    return this.leds.map(led => {
+      return {...led, brightness: brightness};
     })
   }
 }

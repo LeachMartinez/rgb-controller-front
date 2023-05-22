@@ -59,6 +59,13 @@
     margin-bottom: 16px;
     font-weight: 700;
   }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
 }
 .led {
   width: 100%;

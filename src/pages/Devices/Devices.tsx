@@ -1,9 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 
 import IDevice from "../../interfaces/device";
 
-import CreateDevice from "./CreateDevice";
 import Button from "../../components/Button";
 
 import "./devices.scss";
@@ -14,11 +13,12 @@ enum deviceType {
 }
 
 const Devices : React.FC = () => {
+  const data = useLoaderData() as IDevice[];
   const [devices, setDevices] = React.useState<IDevice[]>([]);
-  const [modalShowed, setModalShowed] = React.useState<boolean>(false);
-  const onAddDevice = () => {
-    setModalShowed(true);
-  }
+
+  useEffect(() => {
+    setDevices(data);
+  }, [data]);
 
   return (
     <div className="devices-wrapper">
@@ -40,10 +40,6 @@ const Devices : React.FC = () => {
             })} 
           </div>
         </div> : null 
-      }
-      <Button onClickBtn={onAddDevice} textBtn={"Добавить устройство"}/>
-      { modalShowed ? 
-        <CreateDevice setDevices={setDevices} setModalShowed={setModalShowed}/> : null
       }
     </div>
   );
