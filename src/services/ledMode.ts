@@ -20,8 +20,23 @@ class LedMode implements ILedMode {
     })
   }
 
-  faded() {
+  impulse(j: number) : ILed[] {
+    const impulseTailSize: number = 11;
+    let newLeds = this.leds;
+    let brightness = 100;
 
+    newLeds = this.leds.map(led => {
+      return {...led, brightness: 0}
+    });
+
+    for (let i = 0; i < impulseTailSize; i++) {
+      if (this.ledsCount - (j - i) > 0) { 
+        newLeds[j - i] = {...this.leds[j], brightness: brightness}
+      }
+      brightness = brightness - 10;
+    }
+    
+    return newLeds;
   }
 
   fading(i : number, timestapValue : number) : ILed[] {
