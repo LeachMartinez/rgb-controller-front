@@ -28,7 +28,7 @@ const Devices : React.FC = () => {
           <div className="devices-wrapper__items">
             {devices.map((device) => {
               return (
-                <Link to={`/devices/${device.id}`} className="deviceItem__wrapper">
+                <Link to={`/device/${device.id}`} className="deviceItem__wrapper">
                   <div className="deviceItem">
                     <h2 className="deviceItem__title">{device.name}</h2>
                     <span className="deviceItem__desc">MAC: {device.mac}</span>

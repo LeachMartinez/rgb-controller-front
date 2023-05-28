@@ -37,7 +37,7 @@ export const Device : React.FC = () => {
             </span>
           </div>
         </section>
-        <DeviceTapeTemplate ledCount={data.ledCount} mode={mode} />
+        <DeviceTapeTemplate ledCount={data.ledCount} mode={mode} deviceId={data.id} />
       </div>
       <section className="modes">
         <h2 className="modes__title">Режимы</h2>

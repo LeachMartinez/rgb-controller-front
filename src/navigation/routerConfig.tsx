@@ -12,7 +12,7 @@ const routerConfig = createBrowserRouter([
     }
   },
   {
-    path: "/devices/:id",
+    path: "/device/:id",
     element: <Device/>,
     loader: async ({ params }) : Promise<IDevice | ""> => {
       return params.id ? (await new DeviceApi().getDevice(params.id)).data : "";

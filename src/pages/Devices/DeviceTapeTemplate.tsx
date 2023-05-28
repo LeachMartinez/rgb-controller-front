@@ -2,27 +2,24 @@ import ILed from "../../interfaces/led";
 import React from "react";
 
 import LedMode from "../../services/ledMode";
-
+import Button from "../../components/Button";
 interface IPropsDeviceTapeTemplate {
   ledCount: number
   mode: string
+  deviceId: number
 }
 
 const allowSettings = {
   changeTimestamp: ["fading", "rainbowColor", "fadedRow", "impulse"],
-  changeColor: ["fading", "rainbowColor", "fadedRow", "impulse", "staticLight"],
+  changeColor: ["fading", "impulse", "staticLight"],
   changeBrightness: ["fading", "rainbowColor", "fadedRow", "impulse", "staticLight"]
 }
 
-
-export const DeviceTapeTemplate : React.FC<IPropsDeviceTapeTemplate>  = ({ledCount, mode}) => {
+export const DeviceTapeTemplate : React.FC<IPropsDeviceTapeTemplate>  = ({ledCount, mode, deviceId}) => {
   const [leds, setLeds] = React.useState<ILed[]>([]);
   const [timeLine, setTimeLine] = React.useState(0.1);
   const [timestapValue, setTimestapValue] = React.useState(16);
-  const [currentLedCount, setCurrentLedCount] = React.useState(0);
-  React.useEffect(() => {
-    setTimeout(() => {});
-  });
+  const [currentLedPos, setcurrentLedPos] = React.useState(0);
 
   React.useEffect(() => {
     setLeds(() => {
@@ -44,7 +41,7 @@ export const DeviceTapeTemplate : React.FC<IPropsDeviceTapeTemplate>  = ({ledCou
   React.useEffect(() => {
     setTimeout(() => {
       setTimeLine(timeLine + 0.1);
-      setCurrentLedCount(currentLedCount => currentLedCount === ledCount + 12 ? currentLedCount = 0 : currentLedCount = currentLedCount + 1);
+      setcurrentLedPos(currentLedPos => currentLedPos === ledCount + 12 ? currentLedPos = 0 : currentLedPos = currentLedPos + 1);
       
       if (mode === "fadedRow") {
         setLeds(ledMode.fadedRow(timeLine, timestapValue))
@@ -56,10 +53,10 @@ export const DeviceTapeTemplate : React.FC<IPropsDeviceTapeTemplate>  = ({ledCou
         setLeds(ledMode.fading(timeLine, timestapValue))
       }
       if (mode === "impulse") {
-        setLeds(ledMode.impulse(currentLedCount));
+        setLeds(ledMode.impulse(currentLedPos));
       }
     }, 16);
-  }, [ledMode, mode, timeLine, currentLedCount, ledCount,timestapValue]);
+  }, [ledMode, mode, timeLine, currentLedPos, ledCount,timestapValue]);
 
   const handleChamgeTimestap : React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setTimestapValue(+e.currentTarget.value);
@@ -73,6 +70,12 @@ export const DeviceTapeTemplate : React.FC<IPropsDeviceTapeTemplate>  = ({ledCou
     setLeds(ledMode.changeBrightness(+e.currentTarget.value))
   }
 
+  const handleSubmitMode : React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    const {color, brightness, timestamp} = e.currentTarget;
+    ledMode.sendMode(deviceId, {color, brightness, timestamp, mode});
+  }
+
   return (
     <>
       <section className="led__section">
@@ -80,7 +83,10 @@ export const DeviceTapeTemplate : React.FC<IPropsDeviceTapeTemplate>  = ({ledCou
         <div className="led__wrapper">
           {leds.map(item => {
             return (
-              <div className="led" style={{backgroundColor: `rgb(${item.r}, ${item.g}, ${item.b})`, filter: `brightness(${item.brightness}%)`}}></div>
+              <div 
+                className="led" 
+                style={{backgroundColor: `rgb(${item.r}, ${item.g}, ${item.b})`, filter: `brightness(${item.brightness}%)`}}
+              ></div>
             )
           })}
         </div>
@@ -88,9 +94,12 @@ export const DeviceTapeTemplate : React.FC<IPropsDeviceTapeTemplate>  = ({ledCou
 
       <section>
         <h2>Настройки режима</h2>
-        { allowSettings.changeColor.includes(mode) ? <input type="color" name="setLedColor" onChange={(e) => (handleChangeColor(e))}/> : null}
-        { allowSettings.changeBrightness.includes(mode) ? <input type="range" name="brightness" onChange={(e) => {handleChanheBrightness(e)}} min={0} max={100}/> : null}
-        { allowSettings.changeTimestamp.includes(mode) ? <input type="range" name="timestap" onChange={(e) => {handleChamgeTimestap(e)}} min={2} max={100}/> : null}
+        <form action="" onSubmit={handleSubmitMode}>
+          { allowSettings.changeColor.includes(mode) && <input type="color" id="color" onChange={(e) => (handleChangeColor(e))}/> }
+          { allowSettings.changeBrightness.includes(mode) && <input type="range" id="brightness" onChange={(e) => {handleChanheBrightness(e)}} min={0} max={100}/> }
+          { allowSettings.changeTimestamp.includes(mode) && <input type="range" id="timestamp" onChange={(e) => {handleChamgeTimestap(e)}} min={2} max={100}/> }
+          <Button className="modes" textBtn="Отправить" />
+        </form>
       </section>
     </>
   )

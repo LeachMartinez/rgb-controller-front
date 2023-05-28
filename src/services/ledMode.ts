@@ -1,11 +1,17 @@
 import ILed from "../interfaces/led";
 import ILedMode from "../interfaces/ledMode";
 import ColorConverter from "./colorConverter";
-
+import ModeApi from "../api/modeApi";
 class LedMode implements ILedMode {
 
   leds : ILed[];
   ledsCount : number;
+
+  private validData = {
+    deviceId: 0,
+    data: {},
+    errors: []
+  }
 
   constructor(leds: ILed[]) {
     this.leds = leds;
@@ -65,6 +71,22 @@ class LedMode implements ILedMode {
     return this.leds.map(led => {
       return {...led, brightness: brightness};
     })
+  }
+
+  sendMode(deviceId: number, data: {}) : Array<string> {
+    this.validData.data = data;
+    this.validData.deviceId = deviceId;
+    this.validate();
+
+    if (this.validData.errors.length === 0) {
+      new ModeApi().sendMode(deviceId, data);
+    }
+
+    return this.validData.errors;
+  }
+
+  private validate() {
+    this.validData = {...this.validData, errors: []}
   }
 }
 
